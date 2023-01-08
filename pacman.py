@@ -5,15 +5,6 @@
 # . -> empty spaces
 # | and - -> walls
 
-game_map = [
-    "|--------|",
-    "|G..|..G.|",
-    "|...PP...|",
-    "|G....@|.|",
-    "|........|",
-    "|--------|",
-]
-
 
 def find_pacman(pacman_map):
     """"""
