@@ -73,6 +73,35 @@ def move_pacman(pacman_map, next_pacman_x, next_pacman_y):
     )
 
 
+def play(pacman_map, key) -> None:
+    """
+    a <-- left
+    d --> right
+    w --> up
+    s --> down
+
+    :param pacman_map:
+    :param key:
+    :return:
+    """
+    # posição onde pacman está
+    x, y = find_pacman(pacman_map)
+
+    # mapa com ajustes de posição
+    mapa_movimentacao = {
+        'a': (0, -1),
+        'd': (0, 1),
+        'w': (-1, 0),
+        's': (1, 0),
+    }
+
+    # deriva posições novas
+    next_x, next_y = mapa_movimentacao.get(key, (-1, -1))
+
+    # movimenta o pacman
+    move_pacman(pacman_map, x + next_x, y + next_y)
+
+
 def _replace_position_in_pacman_row(pacman_row: str,
                                     position_index: int,
                                     position_new_value: str) -> str:
