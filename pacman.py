@@ -43,3 +43,46 @@ def find_pacman(pacman_map) -> (int, int):
                 pacman_y = y
 
     return pacman_x, pacman_y
+
+
+def move_pacman(pacman_map, next_pacman_x, next_pacman_y):
+    """
+    Função que recoloca pacman em nova posição (coordenadas
+    next_pacman_x, next_pacman_y) do pacman_map.
+
+    :param pacman_map:
+    :param next_pacman_x:
+    :param next_pacman_y:
+    :return:
+    """
+    # obtem posição atual do pacman no mapa
+    pacman_x, pacman_y = find_pacman(pacman_map)
+
+    # retiramos pacman da posiação atual
+    pacman_map[pacman_x] = _replace_position_in_pacman_row(
+        pacman_map[pacman_x],
+        pacman_y,
+        PacmanActors.EMPTY_SPACE.value
+    )
+
+    # o colocamos na nova posição
+    pacman_map[next_pacman_x] = _replace_position_in_pacman_row(
+        pacman_map[next_pacman_x],
+        next_pacman_y,
+        PacmanActors.PACMAN.value
+    )
+
+
+def _replace_position_in_pacman_row(pacman_row: str,
+                                    position_index: int,
+                                    position_new_value: str) -> str:
+    """
+    Função auxiliar (privada) para construir nova linha com subsituição
+    na position_index de pacman_row passada por position_new_value passado
+
+    :param pacman_row:
+    :param position_index:
+    :param position_new_value:
+    :return:
+    """
+    return pacman_row[:position_index] + position_new_value + pacman_row[position_index+1:]
