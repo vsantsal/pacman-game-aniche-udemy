@@ -3,7 +3,7 @@ import unittest
 from pacman import next_position, find_pacman
 
 
-class KeyBasedPacmanMoveTest(unittest.TestCase):
+class NextPositionTest(unittest.TestCase):
     def setUp(self) -> None:
         # Arrange
         self.mapa = [
@@ -19,36 +19,32 @@ class KeyBasedPacmanMoveTest(unittest.TestCase):
 
     def test_move_to_the_right(self):
         # Act
-        next_position(self.mapa, 'd')
+        x, y = next_position(self.mapa, 'd')
 
         # Assert
-        x, y = find_pacman(self.mapa)
         self.assertEqual(self.pacman_x, x)
         self.assertEqual(self.pacman_y + 1, y)
 
     def test_move_to_the_left(self):
         # Act
-        next_position(self.mapa, 'a')
+        x, y = next_position(self.mapa, 'a')
 
         # Assert
-        x, y = find_pacman(self.mapa)
         self.assertEqual(self.pacman_x, x)
         self.assertEqual(self.pacman_y - 1, y)
 
     def test_move_up(self):
         # Act
-        next_position(self.mapa, 'w')
+        x, y = next_position(self.mapa, 'w')
 
         # Assert
-        x, y = find_pacman(self.mapa)
         self.assertEqual(self.pacman_x - 1, x)
         self.assertEqual(self.pacman_y, y)
 
     def test_move_down(self):
         # Act
-        next_position(self.mapa, 's')
+        x, y = next_position(self.mapa, 's')
 
         # Assert
-        x, y = find_pacman(self.mapa)
         self.assertEqual(self.pacman_x + 1, x)
         self.assertEqual(self.pacman_y, y)

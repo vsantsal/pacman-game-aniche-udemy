@@ -73,7 +73,7 @@ def move_pacman(pacman_map, next_pacman_x, next_pacman_y):
     )
 
 
-def next_position(pacman_map, key) -> None:
+def next_position(pacman_map, key) -> (int, int):
     """
     a <-- left
     d --> right
@@ -97,9 +97,7 @@ def next_position(pacman_map, key) -> None:
 
     # deriva posições novas
     next_x, next_y = mapa_movimentacao.get(key, (-1, -1))
-
-    # movimenta o pacman
-    move_pacman(pacman_map, x + next_x, y + next_y)
+    return x + next_x, y + next_y
 
 
 def _replace_position_in_pacman_row(pacman_row: str,
