@@ -73,7 +73,7 @@ def move_pacman(pacman_map, next_pacman_x, next_pacman_y):
     )
 
 
-def play(pacman_map, key) -> None:
+def next_position(pacman_map, key) -> None:
     """
     a <-- left
     d --> right

@@ -1,6 +1,6 @@
 import unittest
 
-from pacman import play, find_pacman
+from pacman import next_position, find_pacman
 
 
 class KeyBasedPacmanMoveTest(unittest.TestCase):
@@ -19,7 +19,7 @@ class KeyBasedPacmanMoveTest(unittest.TestCase):
 
     def test_move_to_the_right(self):
         # Act
-        play(self.mapa, 'd')
+        next_position(self.mapa, 'd')
 
         # Assert
         x, y = find_pacman(self.mapa)
@@ -28,7 +28,7 @@ class KeyBasedPacmanMoveTest(unittest.TestCase):
 
     def test_move_to_the_left(self):
         # Act
-        play(self.mapa, 'a')
+        next_position(self.mapa, 'a')
 
         # Assert
         x, y = find_pacman(self.mapa)
@@ -37,7 +37,7 @@ class KeyBasedPacmanMoveTest(unittest.TestCase):
 
     def test_move_up(self):
         # Act
-        play(self.mapa, 'w')
+        next_position(self.mapa, 'w')
 
         # Assert
         x, y = find_pacman(self.mapa)
@@ -46,7 +46,7 @@ class KeyBasedPacmanMoveTest(unittest.TestCase):
 
     def test_move_down(self):
         # Act
-        play(self.mapa, 's')
+        next_position(self.mapa, 's')
 
         # Assert
         x, y = find_pacman(self.mapa)
