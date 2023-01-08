@@ -1,5 +1,6 @@
 import unittest
 
+from exceptions import IllegalPacmanPositionException
 from pacman import find_pacman
 
 
@@ -36,3 +37,17 @@ class FindPacmanTest(unittest.TestCase):
         # Assert
         self.assertEqual(-1, x)
         self.assertEqual(-1, y)
+
+    def test_raises_error_when_when_pacman_is_more_than_once_in_map(self):
+        # Arrange
+        mapa = [
+            "|--------|",
+            "|G..|@.G.|",
+            "|...PP...|",
+            "|G@....|.|",
+            "|--------|",
+        ]
+        # Act + Assert
+        with self.assertRaises(IllegalPacmanPositionException) as contexto:
+            find_pacman(mapa)
+        self.assertEqual("Há mais de um pacman no jogo!", contexto.exception.args[0])
