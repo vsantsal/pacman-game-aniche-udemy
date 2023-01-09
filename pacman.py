@@ -103,15 +103,19 @@ def next_position(pacman_map, key: str) -> (int, int):
     return x + next_x, y + next_y
 
 
-def play(pacman_map, key):
+def play(pacman_map, key) -> bool:
     """
 
     :param pacman_map:
     :param key:
     :return:
     """
-    next_x, next_y = next_position(pacman_map, key)
+    try:
+        next_x, next_y = next_position(pacman_map, key)
+    except ValueError:
+        return False
     move_pacman(pacman_map, next_x, next_y)
+    return True
 
 
 def _replace_position_in_pacman_row(pacman_row: str,

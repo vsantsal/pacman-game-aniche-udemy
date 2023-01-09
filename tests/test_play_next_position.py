@@ -113,3 +113,10 @@ class PlayPacmanTest(unittest.TestCase):
         x, y = find_pacman(self.mapa)
         self.assertEqual(self.pacman_x + 1, x)
         self.assertEqual(self.pacman_y, y)
+
+    def test_when_unknown_direction_returns_false(self):
+        # Act
+        is_valid_play = play(self.mapa, 'b')
+
+        # Assert
+        self.assertFalse(is_valid_play)
