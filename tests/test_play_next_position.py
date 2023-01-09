@@ -55,6 +55,14 @@ class NextPositionTest(unittest.TestCase):
         self.assertEqual("Direção 'b' não reconhecida",
                          contexto.exception.args[0])
 
+    def test_move_is_case_insensitive(self):
+        # Act
+        x, y = next_position(self.mapa, 'S')
+
+        # Assert
+        self.assertEqual(self.pacman_x + 1, x)
+        self.assertEqual(self.pacman_y, y)
+
 
 class PlayPacmanTest(unittest.TestCase):
     def setUp(self) -> None:

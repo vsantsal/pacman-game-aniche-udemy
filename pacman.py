@@ -73,7 +73,7 @@ def move_pacman(pacman_map, next_pacman_x, next_pacman_y):
     )
 
 
-def next_position(pacman_map, key) -> (int, int):
+def next_position(pacman_map, key: str) -> (int, int):
     """
     a <-- left
     d --> right
@@ -97,7 +97,7 @@ def next_position(pacman_map, key) -> (int, int):
 
     # deriva posições novas
     try:
-        next_x, next_y = mapa_movimentacao[key]
+        next_x, next_y = mapa_movimentacao[key.lower()]
     except KeyError:
         raise ValueError(f"Direção '{key}' não reconhecida")
     return x + next_x, y + next_y
