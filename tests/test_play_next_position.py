@@ -50,7 +50,20 @@ class NextPositionTest(unittest.TestCase):
         self.assertEqual(self.pacman_y, y)
 
 
-class PlayPacmanTest(NextPositionTest):
+class PlayPacmanTest(unittest.TestCase):
+    def setUp(self) -> None:
+        # Arrange
+        self.mapa = [
+            "|--------|",
+            "|G..|..G.|",
+            "|...PP...|",
+            "|G...@.|.|",
+            "|........|",
+            "|--------|",
+        ]
+        self.pacman_x = 3
+        self.pacman_y = 5
+
     def test_move_to_the_right(self):
         # Act
         play(self.mapa, 'd')
