@@ -49,6 +49,12 @@ class NextPositionTest(unittest.TestCase):
         self.assertEqual(self.pacman_x + 1, x)
         self.assertEqual(self.pacman_y, y)
 
+    def test_move_to_unknow_key_raises_value_error(self):
+        with self.assertRaises(ValueError) as contexto:
+            next_position(self.mapa, 'b')
+        self.assertEqual("Direção 'b' não reconhecida",
+                         contexto.exception.args[0])
+
 
 class PlayPacmanTest(unittest.TestCase):
     def setUp(self) -> None:

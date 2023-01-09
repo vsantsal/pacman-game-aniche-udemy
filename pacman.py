@@ -96,7 +96,10 @@ def next_position(pacman_map, key) -> (int, int):
     }
 
     # deriva posições novas
-    next_x, next_y = mapa_movimentacao.get(key, (-1, -1))
+    try:
+        next_x, next_y = mapa_movimentacao[key]
+    except KeyError:
+        raise ValueError(f"Direção '{key}' não reconhecida")
     return x + next_x, y + next_y
 
 
