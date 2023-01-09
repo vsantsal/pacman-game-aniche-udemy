@@ -110,12 +110,27 @@ def play(pacman_map, key) -> bool:
     :param key:
     :return:
     """
+    # obtém coordenadas de destino a partir da key passada
     try:
         next_x, next_y = next_position(pacman_map, key)
     except ValueError:
         return False
+
+    if not _is_within_borders(pacman_map, next_x, next_y):
+        return False
+
     move_pacman(pacman_map, next_x, next_y)
     return True
+
+
+def _is_within_borders(pacman_map, next_x: int, next_y: int) -> bool:
+    number_of_rows: int = len(pacman_map)
+    x_is_valid: bool = 0 <= next_x < number_of_rows
+
+    number_of_columns: int = len(pacman_map[0])
+    y_is_valid: bool = 0 <= next_y < number_of_columns
+
+    return x_is_valid and y_is_valid
 
 
 def _replace_position_in_pacman_row(pacman_row: str,

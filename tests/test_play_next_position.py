@@ -120,3 +120,31 @@ class PlayPacmanTest(unittest.TestCase):
 
         # Assert
         self.assertFalse(is_valid_play)
+
+    def test_when_direction_gets_out_of_columns_returns_false(self):
+        # Arrange
+        mapa = [
+            "|--------|",
+            "|G.......@",
+            "|--------|",
+        ]
+
+        # Act
+        is_valid_play = play(mapa, 'd')
+
+        # Assert
+        self.assertFalse(is_valid_play)
+
+    def test_when_direction_gets_out_of_rows_returns_false(self):
+        # Arrange
+        mapa = [
+            "|--------|",
+            "|G.......|",
+            "|----@---|",
+        ]
+
+        # Act
+        is_valid_play = play(mapa, 's')
+
+        # Assert
+        self.assertFalse(is_valid_play)
