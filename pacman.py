@@ -100,6 +100,17 @@ def next_position(pacman_map, key) -> (int, int):
     return x + next_x, y + next_y
 
 
+def play(pacman_map, key):
+    """
+
+    :param pacman_map:
+    :param key:
+    :return:
+    """
+    next_x, next_y = next_position(pacman_map, key)
+    move_pacman(pacman_map, next_x, next_y)
+
+
 def _replace_position_in_pacman_row(pacman_row: str,
                                     position_index: int,
                                     position_new_value: str) -> str:
