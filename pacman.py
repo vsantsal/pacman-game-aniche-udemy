@@ -103,6 +103,22 @@ def next_position(pacman_map, key: str) -> (int, int):
     return x + next_x, y + next_y
 
 
+def total_pills(pacman_map) -> int:
+    """
+
+    Função que conta pills no jogo.
+
+    :param pacman_map:
+    :return:
+    """
+    count = 0
+    for row in range(len(pacman_map)):
+        for column in pacman_map[row]:
+            if column == PacmanActors.PILL.value:
+                count += 1
+    return count
+
+
 def play(pacman_map, key) -> (bool, bool):
     """
     Função retorna tupla de booleanos - primeira posição indica se jogada
