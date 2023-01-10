@@ -119,10 +119,13 @@ def total_pills(pacman_map) -> int:
     return count
 
 
-def play(pacman_map, key) -> (bool, bool):
+def play(pacman_map, key) -> (bool, bool, bool):
     """
-    Função retorna tupla de booleanos - primeira posição indica se jogada
-    foi válida, segunda posição se pacman está vivo.
+    Função retorna tupla de booleanos -
+    * primeira posição indica se jogada
+    foi válida
+    * segunda posição se pacman está vivo
+    * terceira posição se jogo acabou
 
     :param pacman_map:
     :param key:
@@ -132,19 +135,23 @@ def play(pacman_map, key) -> (bool, bool):
     try:
         next_x, next_y = next_position(pacman_map, key)
     except ValueError:
-        return False, True
+        return False, True, False
 
     if not _is_within_borders(pacman_map, next_x, next_y):
-        return False, True
+        return False, True, False
 
     if _has_hit_wall(pacman_map, next_x, next_y):
-        return False, True
+        return False, True, False
 
     if _has_hit_ghost(pacman_map, next_x, next_y):
-        return True, False
+        return True, False, False
 
     move_pacman(pacman_map, next_x, next_y)
-    return True, True
+
+    if total_pills(pacman_map) == 0:
+        return True, True, True
+    
+    return True, True, False
 
 
 def _has_hit_ghost(pacman_map, next_x: int, next_y: int) -> bool:
