@@ -150,7 +150,7 @@ def play(pacman_map, key) -> (bool, bool, bool):
 
     if total_pills(pacman_map) == 0:
         return True, True, True
-    
+
     return True, True, False
 
 
