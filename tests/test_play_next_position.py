@@ -113,3 +113,80 @@ class PlayPacmanTest(unittest.TestCase):
         x, y = find_pacman(self.mapa)
         self.assertEqual(self.pacman_x + 1, x)
         self.assertEqual(self.pacman_y, y)
+
+    def test_when_unknown_direction_returns_false(self):
+        # Act
+        is_valid_play = play(self.mapa, 'b')[0]
+
+        # Assert
+        self.assertFalse(is_valid_play)
+
+    def test_when_direction_gets_out_of_columns_play_is_invalid(self):
+        # Arrange
+        mapa = [
+            "|--------|",
+            "|G.......@",
+            "|--------|",
+        ]
+
+        # Act
+        is_valid_play = play(mapa, 'd')[0]
+
+        # Assert
+        self.assertFalse(is_valid_play)
+
+    def test_when_direction_gets_out_of_rows_play_is_invalid(self):
+        # Arrange
+        mapa = [
+            "|--------|",
+            "|G.......|",
+            "|----@---|",
+        ]
+
+        # Act
+        is_valid_play = play(mapa, 's')[0]
+
+        # Assert
+        self.assertFalse(is_valid_play)
+
+    def test_when_direction_hits_side_wall_play_is_invalid(self):
+        # Arrange
+        mapa = [
+            "|--------|",
+            "|@......G|",
+            "|--------|",
+        ]
+
+        # Act
+        is_valid_play = play(mapa, 'a')[0]
+
+        # Assert
+        self.assertFalse(is_valid_play)
+
+    def test_when_direction_hits_horizontal_wall_play_is_invalid(self):
+        # Arrange
+        mapa = [
+            "|--------|",
+            "|@......G|",
+            "|--------|",
+        ]
+
+        # Act
+        is_valid_play = play(mapa, 'w')[0]
+
+        # Assert
+        self.assertFalse(is_valid_play)
+
+    def test_when_hits_a_ghost_pacman_dies(self):
+        # Arrange
+        mapa = [
+            "|--------|",
+            "|......@G|",
+            "|--------|",
+        ]
+
+        # Act
+        is_pacman_alive = play(mapa, 'd')[1]
+
+        # Assert
+        self.assertFalse(is_pacman_alive)

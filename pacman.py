@@ -14,8 +14,8 @@ class PacmanActors(Enum):
     GHOST = 'G'
     PILL = 'P'
     EMPTY_SPACE = '.'
-    HORIZONTAL_WALL = '|'
-    VERTICAL_WALL = '-'
+    DASH_WALL = '-'
+    PIPE_WALL = '|'
 
 
 def find_pacman(pacman_map) -> (int, int):
@@ -103,15 +103,76 @@ def next_position(pacman_map, key: str) -> (int, int):
     return x + next_x, y + next_y
 
 
-def play(pacman_map, key):
+def total_pills(pacman_map) -> int:
     """
+
+    Função que conta pills no jogo.
+
+    :param pacman_map:
+    :return:
+    """
+    count = 0
+    for row in range(len(pacman_map)):
+        for column in pacman_map[row]:
+            if column == PacmanActors.PILL.value:
+                count += 1
+    return count
+
+
+def play(pacman_map, key) -> (bool, bool, bool):
+    """
+    Função retorna tupla de booleanos -
+    * primeira posição indica se jogada
+    foi válida
+    * segunda posição se pacman está vivo
+    * terceira posição se jogo acabou
 
     :param pacman_map:
     :param key:
     :return:
     """
-    next_x, next_y = next_position(pacman_map, key)
+    # obtém coordenadas de destino a partir da key passada
+    try:
+        next_x, next_y = next_position(pacman_map, key)
+    except ValueError:
+        return False, True, False
+
+    if not _is_within_borders(pacman_map, next_x, next_y):
+        return False, True, False
+
+    if _has_hit_wall(pacman_map, next_x, next_y):
+        return False, True, False
+
+    if _has_hit_ghost(pacman_map, next_x, next_y):
+        return True, False, False
+
     move_pacman(pacman_map, next_x, next_y)
+
+    if total_pills(pacman_map) == 0:
+        return True, True, True
+
+    return True, True, False
+
+
+def _has_hit_ghost(pacman_map, next_x: int, next_y: int) -> bool:
+    return pacman_map[next_x][next_y] == PacmanActors.GHOST.value
+
+
+def _has_hit_wall(pacman_map, next_x: int, next_y: int) -> bool:
+    return (
+            pacman_map[next_x][next_y] == PacmanActors.PIPE_WALL.value or
+            pacman_map[next_x][next_y] == PacmanActors.DASH_WALL.value
+    )
+
+
+def _is_within_borders(pacman_map, next_x: int, next_y: int) -> bool:
+    number_of_rows: int = len(pacman_map)
+    x_is_valid: bool = 0 <= next_x < number_of_rows
+
+    number_of_columns: int = len(pacman_map[0])
+    y_is_valid: bool = 0 <= next_y < number_of_columns
+
+    return x_is_valid and y_is_valid
 
 
 def _replace_position_in_pacman_row(pacman_row: str,
