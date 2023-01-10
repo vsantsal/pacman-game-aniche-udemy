@@ -103,8 +103,10 @@ def next_position(pacman_map, key: str) -> (int, int):
     return x + next_x, y + next_y
 
 
-def play(pacman_map, key) -> bool:
+def play(pacman_map, key) -> (bool, bool):
     """
+    Função retorna tupla de booleanos - primeira posição indica se jogada
+    foi válida, segunda posição se pacman está vivo.
 
     :param pacman_map:
     :param key:
@@ -114,16 +116,16 @@ def play(pacman_map, key) -> bool:
     try:
         next_x, next_y = next_position(pacman_map, key)
     except ValueError:
-        return False
+        return False, True
 
     if not _is_within_borders(pacman_map, next_x, next_y):
-        return False
+        return False, True
 
     if _has_hit_wall(pacman_map, next_x, next_y):
-        return False
+        return False, True
 
     move_pacman(pacman_map, next_x, next_y)
-    return True
+    return True, True
 
 
 def _has_hit_wall(pacman_map, next_x: int, next_y: int) -> bool:

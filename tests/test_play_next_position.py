@@ -116,7 +116,7 @@ class PlayPacmanTest(unittest.TestCase):
 
     def test_when_unknown_direction_returns_false(self):
         # Act
-        is_valid_play = play(self.mapa, 'b')
+        is_valid_play = play(self.mapa, 'b')[0]
 
         # Assert
         self.assertFalse(is_valid_play)
@@ -130,7 +130,7 @@ class PlayPacmanTest(unittest.TestCase):
         ]
 
         # Act
-        is_valid_play = play(mapa, 'd')
+        is_valid_play = play(mapa, 'd')[0]
 
         # Assert
         self.assertFalse(is_valid_play)
@@ -144,7 +144,7 @@ class PlayPacmanTest(unittest.TestCase):
         ]
 
         # Act
-        is_valid_play = play(mapa, 's')
+        is_valid_play = play(mapa, 's')[0]
 
         # Assert
         self.assertFalse(is_valid_play)
@@ -158,7 +158,7 @@ class PlayPacmanTest(unittest.TestCase):
         ]
 
         # Act
-        is_valid_play = play(mapa, 'a')
+        is_valid_play = play(mapa, 'a')[0]
 
         # Assert
         self.assertFalse(is_valid_play)
@@ -172,7 +172,7 @@ class PlayPacmanTest(unittest.TestCase):
         ]
 
         # Act
-        is_valid_play = play(mapa, 'w')
+        is_valid_play = play(mapa, 'w')[0]
 
         # Assert
         self.assertFalse(is_valid_play)
