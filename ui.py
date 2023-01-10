@@ -1,3 +1,45 @@
+from pacman import PacmanActors
+
+_mapa_visualizacoes = {
+    PacmanActors.DASH_WALL.value: [
+        "......",
+        "......",
+        "......",
+        "......"
+    ],
+    PacmanActors.PIPE_WALL.value: [
+        "......",
+        "......",
+        "......",
+        "......"
+    ],
+    PacmanActors.GHOST.value: [
+        " .-.  ",
+        "| OO| ",
+        "|   | ",
+        "'^^^' "
+    ],
+    PacmanActors.PACMAN.value: [
+        " .--. ",
+        "/ _.-'",
+        "\\  '-.",
+        " '--' "
+    ],
+    PacmanActors.EMPTY_SPACE.value: [
+        "      ",
+        "      ",
+        "      ",
+        "      "
+    ],
+    PacmanActors.PILL.value: [
+        "      ",
+        " .-.  ",
+        " '-'  ",
+        "      "
+    ],
+}
+
+
 def ui_print(pacman_map):
     """
 
@@ -5,9 +47,13 @@ def ui_print(pacman_map):
     :return:
     """
     for row in pacman_map:
-        for column in row:
-            print(column, end='')
-        print("")
+        for piece in range(4):
+            for column in row:
+                try:
+                    print(_mapa_visualizacoes[column][piece], end='')
+                except KeyError:
+                    continue
+            print("")
 
 
 def ui_key() -> str:
