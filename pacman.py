@@ -172,9 +172,11 @@ def find_ghosts(pacman_map) -> List[Tuple[int, int]]:
     return all_ghosts
 
 
-def move_ghosts(pacman_map):
+def move_ghosts(pacman_map) -> bool:
     """
     Função para mover os fantasmas no pacman_map.
+
+    Retorna indicador se o pacman foi atingido ao fim das movimentações de fantasmas.
 
     :param pacman_map:
     :return:
@@ -186,15 +188,50 @@ def move_ghosts(pacman_map):
         ghost_y = ghost[1]
 
         possible_directions = [
-            (ghost_x, ghost_y + 1),
-            (ghost_x, ghost_y - 1),
-            (ghost_x + 1, ghost_y),
-            (ghost_x - 1, ghost_y),
+            (ghost_x, min(ghost_y + 1, len(pacman_map[ghost_x]) - 1)),
+            (ghost_x, max(ghost_y - 1, 0)),
+            (min(ghost_x + 1, len(pacman_map) - 1), ghost_y),
+            (max(0, ghost_x - 1), ghost_y),
         ]
 
+        # select a random possible and get its coordinates
         random_pos = random.randint(0, 3)
-        nex_ghost_x = possible_directions[random_pos][0]
-        nex_ghost_y = possible_directions[random_pos][1]
+        next_ghost_x = possible_directions[random_pos][0]
+        next_ghost_y = possible_directions[random_pos][1]
+
+        # if hits wall, stays in same position
+        if _has_hit_wall(pacman_map, next_ghost_x, next_ghost_y):
+            continue
+        # also if hits another ghost
+        if _has_hit_ghost(pacman_map, next_ghost_x, next_ghost_y):
+            continue
+        # also if hits pill
+        if _has_hit_pill(pacman_map, next_ghost_x, next_ghost_y):
+            continue
+
+        if _has_hit_pacman(pacman_map, next_ghost_x, next_ghost_y):
+            return True
+
+        # move the ghost to new position
+        pacman_map[next_ghost_x] = _replace_position_in_pacman_row(
+            pacman_map[next_ghost_x],
+            next_ghost_y,
+            PacmanActors.GHOST.value)
+        # empty space in previous position
+        pacman_map[ghost_x] = _replace_position_in_pacman_row(
+            pacman_map[ghost_x],
+            ghost_y,
+            PacmanActors.EMPTY_SPACE.value)
+
+        return False
+
+
+def _has_hit_pill(pacman_map, next_x: int, next_y: int) -> bool:
+    return pacman_map[next_x][next_y] == PacmanActors.PILL.value
+
+
+def _has_hit_pacman(pacman_map, next_x: int, next_y: int) -> bool:
+    return pacman_map[next_x][next_y] == PacmanActors.PACMAN.value
 
 
 def _has_hit_ghost(pacman_map, next_x: int, next_y: int) -> bool:
@@ -230,4 +267,4 @@ def _replace_position_in_pacman_row(pacman_row: str,
     :param position_new_value:
     :return:
     """
-    return pacman_row[:position_index] + position_new_value + pacman_row[position_index+1:]
+    return pacman_row[:position_index] + position_new_value + pacman_row[position_index + 1:]
