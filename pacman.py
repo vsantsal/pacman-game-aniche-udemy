@@ -4,7 +4,9 @@
 # P -> Pills
 # . -> empty spaces
 # | and - -> walls
+import random
 from enum import Enum
+from typing import List, Tuple
 
 from exceptions import IllegalPacmanPositionException
 
@@ -152,6 +154,47 @@ def play(pacman_map, key) -> (bool, bool, bool):
         return True, True, True
 
     return True, True, False
+
+
+def find_ghosts(pacman_map) -> List[Tuple[int, int]]:
+    """
+    Retorna lista com tuplas correspondendo às coordenadas onde os ghosts estão
+    no pacman_map.
+
+    :param pacman_map:
+    :return:
+    """
+    all_ghosts = []
+    for x in range(len(pacman_map)):
+        for y in range(len(pacman_map[x])):
+            if pacman_map[x][y] == PacmanActors.GHOST.value:
+                all_ghosts.append((x, y))
+    return all_ghosts
+
+
+def move_ghosts(pacman_map):
+    """
+    Função para mover os fantasmas no pacman_map.
+
+    :param pacman_map:
+    :return:
+    """
+    all_ghosts = find_ghosts(pacman_map)
+
+    for ghost in all_ghosts:
+        ghost_x = ghost[0]
+        ghost_y = ghost[1]
+
+        possible_directions = [
+            (ghost_x, ghost_y + 1),
+            (ghost_x, ghost_y - 1),
+            (ghost_x + 1, ghost_y),
+            (ghost_x - 1, ghost_y),
+        ]
+
+        random_pos = random.randint(0, 3)
+        nex_ghost_x = possible_directions[random_pos][0]
+        nex_ghost_y = possible_directions[random_pos][1]
 
 
 def _has_hit_ghost(pacman_map, next_x: int, next_y: int) -> bool:
