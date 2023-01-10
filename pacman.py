@@ -14,8 +14,8 @@ class PacmanActors(Enum):
     GHOST = 'G'
     PILL = 'P'
     EMPTY_SPACE = '.'
-    HORIZONTAL_WALL = '|'
-    VERTICAL_WALL = '-'
+    DASH_WALL = '-'
+    PIPE_WALL = '|'
 
 
 def find_pacman(pacman_map) -> (int, int):
@@ -119,8 +119,18 @@ def play(pacman_map, key) -> bool:
     if not _is_within_borders(pacman_map, next_x, next_y):
         return False
 
+    if _has_hit_wall(pacman_map, next_x, next_y):
+        return False
+
     move_pacman(pacman_map, next_x, next_y)
     return True
+
+
+def _has_hit_wall(pacman_map, next_x: int, next_y: int) -> bool:
+    return (
+            pacman_map[next_x][next_y] == PacmanActors.PIPE_WALL.value or
+            pacman_map[next_x][next_y] == PacmanActors.DASH_WALL.value
+    )
 
 
 def _is_within_borders(pacman_map, next_x: int, next_y: int) -> bool:
