@@ -188,10 +188,10 @@ def move_ghosts(pacman_map) -> bool:
         ghost_y = ghost[1]
 
         possible_directions = [
-            (ghost_x, min(ghost_y + 1, len(pacman_map[ghost_x]) - 1)),
-            (ghost_x, max(ghost_y - 1, 0)),
-            (min(ghost_x + 1, len(pacman_map) - 1), ghost_y),
-            (max(0, ghost_x - 1), ghost_y),
+            (ghost_x, ghost_y + 1),
+            (ghost_x, ghost_y - 1),
+            (ghost_x + 1, ghost_y),
+            (ghost_x - 1, ghost_y),
         ]
 
         # select a random possible and get its coordinates
@@ -199,6 +199,9 @@ def move_ghosts(pacman_map) -> bool:
         next_ghost_x = possible_directions[random_pos][0]
         next_ghost_y = possible_directions[random_pos][1]
 
+        # if gets out of borders, stays in same position
+        if not _is_within_borders(pacman_map, next_ghost_x, next_ghost_y):
+            continue
         # if hits wall, stays in same position
         if _has_hit_wall(pacman_map, next_ghost_x, next_ghost_y):
             continue
