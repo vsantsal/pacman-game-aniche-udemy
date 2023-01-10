@@ -124,8 +124,15 @@ def play(pacman_map, key) -> (bool, bool):
     if _has_hit_wall(pacman_map, next_x, next_y):
         return False, True
 
+    if _has_hit_ghost(pacman_map, next_x, next_y):
+        return True, False
+
     move_pacman(pacman_map, next_x, next_y)
     return True, True
+
+
+def _has_hit_ghost(pacman_map, next_x: int, next_y: int) -> bool:
+    return pacman_map[next_x][next_y] == PacmanActors.GHOST.value
 
 
 def _has_hit_wall(pacman_map, next_x: int, next_y: int) -> bool:

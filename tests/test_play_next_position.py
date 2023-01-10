@@ -176,3 +176,17 @@ class PlayPacmanTest(unittest.TestCase):
 
         # Assert
         self.assertFalse(is_valid_play)
+
+    def test_when_hits_a_ghost_pacman_dies(self):
+        # Arrange
+        mapa = [
+            "|--------|",
+            "|......@G|",
+            "|--------|",
+        ]
+
+        # Act
+        is_pacman_alive = play(mapa, 'd')[1]
+
+        # Assert
+        self.assertFalse(is_pacman_alive)
