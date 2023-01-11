@@ -9,5 +9,5 @@ O produto final é bem simples (um jogo de Pac-man na console), mas o formato *l
 
 ## Trabalhos futuros
 
-[ ] Remodelar projeto para o paradigma de orientação a objetos
-[ ] Remodelar interface gráfica
+- [ ] Remodelar projeto para o paradigma de orientação a objetos
+- [ ] Remodelar interface gráfica
